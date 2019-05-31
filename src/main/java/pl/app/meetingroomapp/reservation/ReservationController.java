@@ -72,13 +72,16 @@ public class ReservationController {
     }
 
     @ModelAttribute("rooms")
-    public List<String> getRoomsNames() {
-        List<Room> rooms = roomService.findAll();
-        List<String> roomNamesList = new ArrayList<>();
-        for(Room room : rooms){
-           String roomName = room.getName();
-           roomNamesList.add(roomName);
-        }
-        return roomNamesList;
+//    public List<String> getRoomsNames() {
+//        List<Room> rooms = roomService.findAll();
+//        List<String> roomNamesList = new ArrayList<>();
+//        for(Room room : rooms){
+//           String roomName = room.getName();
+//           roomNamesList.add(roomName);
+//        }
+//        return roomNamesList;
+//    }
+    public List<Room> findAllRooms(){
+        return roomService.findAll();
     }
 }
