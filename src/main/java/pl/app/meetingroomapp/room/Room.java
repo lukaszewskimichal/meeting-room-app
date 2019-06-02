@@ -146,6 +146,10 @@ public class Room {
             return "NIE";
         }
     }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
 }
 
 

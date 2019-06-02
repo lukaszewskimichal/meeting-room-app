@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top mb-5">
     <div class="container">
         <a class="navbar-brand" href="#">
-            <img src="images/icon.png" alt=""/>
+            <img height="60px" width="60px" src=<c:url value="/images/icon.png"></c:url> alt=""/>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
