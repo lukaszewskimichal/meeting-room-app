@@ -4,7 +4,7 @@
 Application has been build with following technologies:
 <ol>
 <li>
-Spring Boot / Security / MVC / Data
+Spring Boot / MVC / Data
 </li>
 <li>
 Hibernate ORM and Validation
