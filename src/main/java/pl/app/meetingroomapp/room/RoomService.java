@@ -3,10 +3,7 @@ package pl.app.meetingroomapp.room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.awt.print.Book;
 import java.util.List;
 
 @Service
@@ -16,12 +13,19 @@ public class RoomService {
     @Autowired
     private RoomRepository roomRepository;
 
+    @Autowired
+    private RoomDao roomDao;
+
     public void create(Room room) {
         roomRepository.save(room);
     }
 
     public Room findById(Long id) {
         return roomRepository.getOne(id);
+    }
+
+    public Room read(Long id) {
+        return roomDao.read(id);
     }
 
     public List<Room> findAll() {

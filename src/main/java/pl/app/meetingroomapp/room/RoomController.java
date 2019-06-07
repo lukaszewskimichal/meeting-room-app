@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pl.app.meetingroomapp.user.User;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.awt.print.Book;
 import java.util.List;
 
 @Controller
@@ -60,5 +62,12 @@ public class RoomController {
     public String delete(@PathVariable Long id) {
         roomService.delete(id);
         return "redirect:../list";
+    }
+
+    @ModelAttribute("currentUser")
+    public User getCurrentUserFirstName(ServletRequest request){
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpSession session = req.getSession();
+        return (User) session.getAttribute("userSession");
     }
 }

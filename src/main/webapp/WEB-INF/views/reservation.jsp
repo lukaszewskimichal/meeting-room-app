@@ -6,137 +6,129 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="<c:url value="/webjars/jquery/3.4.1/jquery.min.js"/>"></script>
+    <script src="<c:url value="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"/>"></script>
+    <script src="<c:url value="/webjars/popper.js/1.15.0/umd/popper.min.js"/>"></script>
+    <link href="<c:url value="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet">
+
+    <link rel="icon" href="<c:url value="/resources/images/favicon.png"/>">
     <title>Dodaj rezerwację</title>
 </head>
 <body>
-<%@include file="/WEB-INF/views/header.jspf" %>
-
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top mb-5">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img height="60px" width="60px" src=
+            <c:url value="/resources/images/meeting.png"></c:url> alt="logo"/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <c:out value="<span class=\"nav-link\">Witaj ${currentUser.firstName}!</span>" escapeXml="false"/>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reservations/add">Zarezerwuj salę</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reservations/list">Lista rezerwacji</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/search/">Znajdź rezerwację</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/rooms/list">Sale konferencyjne</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Wyloguj</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="card w-50">
-            <div class="card-header text-center">
-                <div class="d-flex align-items-center">
-                    <h5 class="mx-auto w-100">Rezerwacja sali konferencyjnej</h5>
+    <form:form method="post" modelAttribute="reservation">
+        <div class="row justify-content-center" style="margin-bottom: 100px">
+            <div class="card w-50">
+                <div class="card-header text-center">
+                    <div class="d-flex align-items-center">
+                        <h5 class="mx-auto w-100">Rezerwacja sali konferencyjnej</h5>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body bg-light">
+                <div class="card-body bg-light">
+                    <div class="form-group">
 
-                <div class="form-group">
-                    <form:form method="post" modelAttribute="reservation">
+                        <form:hidden path="id" name="id"/>
+                        <form:hidden path="user" name="user"/>
 
-                    <form:hidden path="id" name="id"/>
-                    <form:hidden path="user" name="user"/>
-
-                    <div class="form-row">
-                        <div class="col-md">
-                            <label>Temat spotkania:</label>
-                            <div class="form-group">
-                                <form:input path="subject" cssClass="form-control" id="nameId"/>
-                                <form:errors path="subject" element="div"/>
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label>Temat spotkania:</label>
+                                <div class="form-group">
+                                    <form:input path="subject" cssClass="form-control" id="nameId"/>
+                                    <form:errors path="subject" element="div" cssClass="error"/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md">
-                            <div class="form-group">
-                                <label>Czas rozpoczęcia:</label>
-                                <form:input path="startTime" cssClass="form-control" id="startTimeId"/>
-                                <form:errors path="startTime" element="div"/>
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label>Liczba uczestników:</label>
+                                <div class="form-group">
+                                    <form:input path="numberOfPeople" cssClass="form-control" id="numberOfPeopleId"/>
+                                    <form:errors path="subject" element="div" cssClass="error"/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md">
-                            <div class="form-group">
-                                <label>Czas zakończenia:</label>
-                                <form:input path="endTime" cssClass="form-control" id="startTimeId"/>
-                                <form:errors path="endTime" element="div"/>
+                        <div class="form-row">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Czas rozpoczęcia:</label>
+                                    <form:input path="startTime" type="datetime-local" cssClass="form-control"
+                                                id="startTimeId"/>
+                                    <form:errors path="startTime" element="div" cssClass="error"/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                        <%--                        <div class="form-row">--%>
-                        <%--                            <div class='col-md'>--%>
-                        <%--                                <div class="form-group">--%>
-                        <%--                                    <label>Czas rozpoczęcia</label>--%>
-                        <%--                                    <div class="input-group date" id="datetimepicker1" data-target-input="nearest">--%>
-                        <%--                                        <form:input path="startTime" type="text"--%>
-                        <%--                                                    class="form-control datetimepicker-input"--%>
-                        <%--                                                    data-target="#datetimepicker1"/>--%>
-                        <%--                                        <form:errors path="startTime" element="div"/>--%>
-                        <%--                                        <div class="input-group-append" data-target="#datetimepicker1"--%>
-                        <%--                                             data-toggle="datetimepicker">--%>
-                        <%--                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>--%>
-                        <%--                                        </div>--%>
-                        <%--                                    </div>--%>
-                        <%--                                </div>--%>
-                        <%--                            </div>--%>
-                        <%--                            <div class='col-md'>--%>
-                        <%--                                <div class="form-group">--%>
-                        <%--                                    <label>Czas zakończenia</label>--%>
-                        <%--                                    <div class="input-group date" id="datetimepicker2" data-target-input="nearest">--%>
-                        <%--                                        <form:input path="endTime" type="text" class="form-control datetimepicker-input"--%>
-                        <%--                                                    data-target="#datetimepicker2" required="required"/>--%>
-                        <%--                                        <form:errors path="endTime" element="div"/>--%>
-                        <%--                                        <div class="input-group-append" data-target="#datetimepicker2"--%>
-                        <%--                                             data-toggle="datetimepicker">--%>
-                        <%--                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>--%>
-                        <%--                                        </div>--%>
-                        <%--                                    </div>--%>
-                        <%--                                </div>--%>
-                        <%--                            </div>--%>
-                        <%--                        </div>--%>
-                        <%--                        <script type="text/javascript">--%>
-                        <%--                            $(function () {--%>
-                        <%--                                $('#datetimepicker1').datetimepicker({--%>
-                        <%--                                    language: 'pl', format: 'DD-MM-YYYY HH:mm',--%>
-                        <%--                                    useCurrent: true--%>
-                        <%--                                });--%>
-                        <%--                                $('#datetimepicker2').datetimepicker({--%>
-                        <%--                                    language: 'pl', format: 'DD-MM-YYYY HH:mm',--%>
-                        <%--                                    useCurrent: false--%>
-                        <%--                                });--%>
-                        <%--                                $('#datetimepicker1').on("change.datetimepicker", function (e) {--%>
-                        <%--                                    $('#datetimepicker2').datetimepicker('minDate', e.date);--%>
-                        <%--                                });--%>
-                        <%--                                $('#datetimepicker1').on("change.datetimepicker", function (e) {--%>
-                        <%--                                    $('#datetimepicker2').datetimepicker('maxDate', e.date);--%>
-                        <%--                                });--%>
-                        <%--                            });--%>
-                        <%--                        </script>--%>
-
-                    <div class="form-row">
-                        <div class="col-md">
-                            <label>Nazwa sali:</label>
-                            <div class="form-group">
-                                <form:select path="room" var="room" items="${rooms}" class="form-control"
-                                             id="room"/>
-                                <form:errors path="room" element="div"/>
+                        <div class="form-row">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Czas zakończenia:</label>
+                                    <form:input path="endTime" type="datetime-local" cssClass="form-control"
+                                                id="startTimeId"/>
+                                    <form:errors path="endTime" element="div" cssClass="error"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label>Nazwa sali:</label>
+                                <div class="form-group">
+                                    <form:select path="room.id" itemLabel="name"
+                                                 itemValue="id"
+                                                 cssClass="form-control"
+                                                 id="room">
+                                        <form:option value="" label="-- Wybierz --"/>
+                                        <form:options items="${rooms}" itemLabel="name"
+                                                      itemValue="id"/>
+                                    </form:select>
+                                    <form:errors path="room.id" element="div" cssClass="error"/>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
                 <div class="card-footer text-center">
                     <button class="btn mt-auto btn-outline-dark" type="submit" name="submit">Zapisz</button>
                 </div>
-                </form:form>
-
+            </div>
         </div>
-    </div>
+    </form:form>
 </div>
-
 <%@include file="/WEB-INF/views/footer.jspf" %>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
 
 </body>
 </html>

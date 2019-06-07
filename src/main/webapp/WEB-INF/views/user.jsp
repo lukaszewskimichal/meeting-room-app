@@ -1,158 +1,84 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html>
-<html lang="pl">
+<%@ taglib prefix="C" uri="http://www.springframework.org/tags/form" %>
+
+<html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-    <title>Zarejestruj się</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style type="text/css">
-        body {
-            color: #fff;
-            background: #63738a;
-            font-family: 'Roboto', sans-serif;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="<c:url value="/webjars/jquery/3.4.1/jquery.min.js"/>"></script>
+    <script src="<c:url value="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"/>"></script>
+    <script src="<c:url value="/webjars/popper.js/1.15.0/umd/popper.min.js"/>"></script>
+    <link href="<c:url value="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet">
 
-        .form-control {
-            height: 40px;
-            box-shadow: none;
-            color: #969fa4;
-        }
+    <link rel="icon" href="<c:url value="/resources/images/favicon.png"/>">
 
-        .form-control:focus {
-            border-color: #5cb85c;
-        }
-
-        .form-control, .btn {
-            border-radius: 3px;
-        }
-
-        .signup-form {
-            width: 400px;
-            margin: 0 auto;
-            padding: 30px 0;
-        }
-
-        .signup-form h2 {
-            color: #636363;
-            margin: 0 0 12px;
-            position: relative;
-            text-align: center;
-        }
-
-        .signup-form h2:before, .signup-form h2:after {
-            content: "";
-            height: 2px;
-            width: 30%;
-            background: #d4d4d4;
-            position: absolute;
-            top: 50%;
-            z-index: 2;
-        }
-
-        .signup-form h2:before {
-            left: 0;
-        }
-
-        .signup-form h2:after {
-            right: 0;
-        }
-
-        .signup-form .hint-text {
-            color: #999;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .signup-form form {
-            color: #999;
-            border-radius: 3px;
-            margin-bottom: 15px;
-            background: #f2f3f7;
-            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-            padding: 30px;
-        }
-
-        .signup-form .form-group {
-            margin-bottom: 20px;
-        }
-
-        .signup-form input[type="checkbox"] {
-            margin-top: 3px;
-        }
-
-        .signup-form .btn {
-            font-size: 16px;
-            font-weight: bold;
-            min-width: 140px;
-            outline: none !important;
-        }
-
-        .signup-form .row div:first-child {
-            padding-right: 10px;
-        }
-
-        .signup-form .row div:last-child {
-            padding-left: 10px;
-        }
-
-        .signup-form a {
-            color: #fff;
-            text-decoration: underline;
-        }
-
-        .signup-form a:hover {
-            text-decoration: none;
-        }
-
-        .signup-form form a {
-            color: #5cb85c;
-            text-decoration: none;
-        }
-
-        .signup-form form a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>Zarejestruj się!</title>
 </head>
 <body>
-<div class="signup-form">
-    <form:form method="post" modelAttribute="user">
-        <h2>Rejestracja</h2>
-        <p class="hint-text">Utwórz konto</p>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-xs-6">
-                    <form:input path="firstName" type="text" class="form-control" name="firstName"
-                                placeholder="imię"
-                                required="required"/>
-                </div>
-                <div class="col-xs-6">
-                    <form:input path="lastName" type="text" class="form-control" name="lastName" placeholder="naziwsko"
-                                required="required"/>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top mb-5">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img height="60px" width="60px" src=
+            <c:url value="/resources/images/meeting.png"></c:url>/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Zaloguj się</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card w-50">
+
+            <div class="card-header text-center">
+                <div class="d-flex align-items-center">
+                    <h5 class="mx-auto w-100">Rejestracja użytkownika</h5>
                 </div>
             </div>
+            <div class="card-body bg-light">
+                <form:form method="post" modelAttribute="user">
+                <form:hidden path="id" name="id"/>
+
+                <label for="firstNameId">Imię:</label>
+                <form:input path="firstName" type="text" id="firstNameId" class="form-control"/>
+                <form:errors path="firstName" element="div" cssClass="error"/>
+
+                <label for="lastNameId">Nazwisko:</label>
+                <form:input path="lastName" type="text" id="lastNameId" class="form-control"/>
+                <form:errors path="lastName" element="div" cssClass="error"/>
+
+                <label for="emailId">Adres e-mail:</label>
+                <form:input path="email" type="email" id="emailId" class="form-control"/>
+                <form:errors path="email" element="div" cssClass="error"/>
+
+                <label for="passwordId">Hasło:</label>
+                <form:input path="password" type="password" id="passwordId" class="form-control"/>
+                <form:errors path="password" element="div" cssClass="error"/>
+
+            </div>
+            <div class="card-footer text-center">
+                <button type="submit" class="btn mt-auto btn-dark">
+                    Zarejestruj się
+                </button>
+                </form:form>
+            </div>
+
         </div>
-        <div class="form-group">
-            <form:input path="email" type="email" class="form-control" name="email" placeholder="e-mail"
-                        required="required"/>
-        </div>
-        <div class="form-group">
-            <form:input path="password" type="password" class="form-control" name="password" placeholder="hasło"
-                        required="required"/>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-success btn-lg btn-block">Zarejestruj się!</button>
-        </div>
-    </form:form>
-    <div class="text-center">Masz już konto? <a href="#">Zaloguj się</a></div>
+    </div>
 </div>
+<%@include file="/WEB-INF/views/footer.jspf" %>
+
 </body>
 </html>

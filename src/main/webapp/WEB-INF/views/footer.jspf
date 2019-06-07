@@ -1,5 +1,5 @@
-<footer class="footer mt-auto py-3">
-    <div class="container">
-        <span class="text-muted float-right">meeting-room-app</span>
+<footer class="footer navbar-expand-lg bg-dark fixed-bottom" style="height: 50px">
+    <div class="container text-center align-text-bottom">
+        <p class="text-muted pt-3">meeting room app</p>
     </div>
 </footer>

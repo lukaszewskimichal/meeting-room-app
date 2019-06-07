@@ -7,6 +7,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,6 +21,7 @@ public class Room {
 
     @NotBlank(message = "Pole 'nazwa' nie może być puste")
     @Size(min = 1)
+    @Column(unique = true)
     private String name;
 
     @NotNull(message = "Pole 'liczba osób' nie może być puste")
@@ -36,9 +38,9 @@ public class Room {
 
     private boolean airConditioning;
 
-    @OneToMany
-    @JoinColumn(name = "reservation_id")
-    private List<Reservation> reservations;
+//    @JoinColumn(name = "reservation_id")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    private List<Reservation> reservations = new ArrayList<>();
 
     public Room() {
     }
@@ -92,7 +94,7 @@ public class Room {
     }
 
     public String setProjectorLabel(boolean projector) {
-        if (projector == true) {
+        if (projector) {
             return "TAK";
         } else {
             return "NIE";
@@ -104,7 +106,7 @@ public class Room {
     }
 
     public String setTeleconferenceSystemLabel(boolean teleconferenceSystem) {
-        if (teleconferenceSystem == true) {
+        if (teleconferenceSystem) {
             return "TAK";
         } else {
             return "NIE";
@@ -116,7 +118,7 @@ public class Room {
     }
 
     public String setFlipchartLabel(boolean flipchart) {
-        if (flipchart == true) {
+        if (flipchart) {
             return "TAK";
         } else {
             return "NIE";
@@ -128,7 +130,7 @@ public class Room {
     }
 
     public String setTvLabel(boolean tv) {
-        if (tv == true) {
+        if (tv) {
             return "TAK";
         } else {
             return "NIE";
@@ -140,7 +142,7 @@ public class Room {
     }
 
     public String setAirConditioningLabel(boolean airConditioning) {
-        if (airConditioning == true) {
+        if (airConditioning) {
             return "TAK";
         } else {
             return "NIE";

@@ -5,12 +5,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.app.meetingroomapp.DateTimeConfig;
 import pl.app.meetingroomapp.room.Room;
+import pl.app.meetingroomapp.room.RoomConverter;
 import pl.app.meetingroomapp.room.RoomService;
+import pl.app.meetingroomapp.user.User;
+import pl.app.meetingroomapp.user.UserService;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -21,15 +25,22 @@ public class ReservationController {
     private ReservationService reservationService;
 
     @Autowired
+    private ReservationRepository reservationRepository;
+
+    @Autowired
     private RoomService roomService;
 
     @Autowired
-    private DateTimeConfig dateTimeConfig;
+    private UserService userService;
+
+    @Autowired
+    private RoomConverter roomConverter;
+
 
     @GetMapping("/list")
     public String getList(Model model) {
-        List<Reservation> rooms = reservationService.findAll();
-        model.addAttribute("reservations", rooms);
+        List<Reservation> reservations = reservationService.findAll();
+        model.addAttribute("reservations", reservations);
         return "reservationList";
     }
 
@@ -40,11 +51,14 @@ public class ReservationController {
     }
 
     @PostMapping("/add")
-    public String addRoom(@ModelAttribute @Valid Reservation reservation, BindingResult result ) {
+    public String addReservation(@ModelAttribute @Valid Reservation reservation, BindingResult result, ServletRequest request) {
         if (result.hasErrors()) {
             return "reservation";
         }
-
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("userSession");
+        reservation.setUser(user);
         reservationService.create(reservation);
         return "redirect:../reservations/list";
     }
@@ -53,14 +67,18 @@ public class ReservationController {
     public String update(@PathVariable Long id, Model model) {
         Reservation reservation = reservationService.findById(id);
         model.addAttribute("reservation", reservation);
-        return "reservation_old";
+        return "reservation";
     }
 
     @PostMapping("/update/{id}")
-    public String update(@ModelAttribute @Valid Reservation reservation, BindingResult result) {
+    public String update(@ModelAttribute @Valid ServletRequest request, Reservation reservation, BindingResult result) {
         if (result.hasErrors()) {
-            return "reservation_old";
+            return "reservation";
         }
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("userSession");
+        reservation.setUser(user);
         reservationService.update(reservation);
         return "redirect:../list";
     }
@@ -71,17 +89,21 @@ public class ReservationController {
         return "redirect:../list";
     }
 
+
     @ModelAttribute("rooms")
-//    public List<String> getRoomsNames() {
-//        List<Room> rooms = roomService.findAll();
-//        List<String> roomNamesList = new ArrayList<>();
-//        for(Room room : rooms){
-//           String roomName = room.getName();
-//           roomNamesList.add(roomName);
-//        }
-//        return roomNamesList;
-//    }
-    public List<Room> findAllRooms(){
+    public List<Room> getRooms() {
         return roomService.findAll();
+    }
+
+    @ModelAttribute("users")
+    public List<User> getAllUsers() {
+        return userService.findAll();
+    }
+
+    @ModelAttribute("currentUser")
+    public User getCurrentUserFirstName(ServletRequest request) {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpSession session = req.getSession();
+        return (User) session.getAttribute("userSession");
     }
 }

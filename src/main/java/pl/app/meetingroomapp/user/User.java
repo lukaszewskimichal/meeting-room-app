@@ -1,14 +1,9 @@
 package pl.app.meetingroomapp.user;
 
-import org.mindrot.jbcrypt.BCrypt;
-import pl.app.meetingroomapp.role.Role;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
-import java.util.Set;
 
 
 @Entity
@@ -20,41 +15,24 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    @NotBlank(message = "Wpisz imię")
-    @Size(min = 3)
+    @NotBlank(message = "Pole 'imię' nie może być puste")
+    @Size(min = 3, message = "Minimalna ilość znaków: 3")
     private String firstName;
 
-    @NotBlank(message = "Wpisz nazwisko")
-    @Size(min = 3)
+    @NotBlank(message = "Pole 'nazwisko' nie może być puste")
+    @Size(min = 3, message = "Minimalna ilość znaków: 3")
     private String lastName;
 
-    @NotBlank(message = "Wpisz adres e-mail")
-    @Email (message = "Wpisz poprawny adres e-mail")
+    @NotBlank(message = "Pole 'adres e-mail' nie może być puste")
+    @Email(message = "Wpisz poprawny adres e-mail")
     @Column(unique = true)
     private String email;
 
     @NotBlank(message = "Wpisz hasło")
-    @Size (min = 6,  message = "Hasło musi mieć minimum 6 znaków!")
+    @Size(min = 6, message = "Hasło musi mieć minimum 6 znaków!")
     private String password;
 
-    private int enabled;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
-
-    @Column(name = "created_on")
-    private LocalDateTime createdOn;
-
-    @PrePersist
-    public void prePersist() {
-        createdOn = LocalDateTime.now();
-    }
-
-    public void setPassword(String password) {
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
-    }
+    private boolean enabled = true;
 
     public User() {
     }
@@ -79,16 +57,8 @@ public class User {
         return password;
     }
 
-    public int getEnabled() {
+    public boolean isEnabled() {
         return enabled;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public LocalDateTime getCreatedOn() {
-        return createdOn;
     }
 
     public void setId(Long id) {
@@ -107,15 +77,12 @@ public class User {
         this.email = email;
     }
 
-    public void setEnabled(int enabled) {
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public void setCreatedOn(LocalDateTime createdOn) {
-        this.createdOn = createdOn;
-    }
 }

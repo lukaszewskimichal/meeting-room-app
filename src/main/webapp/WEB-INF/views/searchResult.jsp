@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="C" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html>
 <head>
@@ -16,14 +14,15 @@
 
     <link rel="icon" href="<c:url value="/resources/images/favicon.png"/>">
 
-    <title>Lista sal</title>
+    <title>Wynik wyszukiwania</title>
 </head>
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top mb-5">
     <div class="container">
         <a class="navbar-brand" href="/">
-            <img alt="logo" height="60px" width="60px" src="<c:url value="/resources/images/meeting.png"/>"/>
+            <img height="60px" width="60px" src=
+            <c:url value="/resources/images/meeting.png"></c:url> alt=""/>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +40,7 @@
                     <a class="nav-link" href="/reservations/list">Lista rezerwacji</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/search">Znajdź rezerwację</a>
+                    <a class="nav-link" href="/search/">Znajdź rezerwację</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/rooms/list">Sale konferencyjne</a>
@@ -56,10 +55,10 @@
 <div class="container">
 
     <div class="row justify-content-center" style="margin-bottom: 100px">
-        <div class="card w-50">
+        <div class="card w-100">
             <div class="card-header text-center">
                 <div class="d-flex align-items-center">
-                    <h5 class="mx-auto w-100">Wykaz sal konferencyjnych</h5>
+                    <h5 class="mx-auto w-100">Wynik wyszukiwania</h5>
                 </div>
             </div>
             <div class="card-body bg-light">
@@ -67,31 +66,43 @@
                     <table class="table table-hover">
                         <thead class="tab-header-background">
                         <tr>
-                            <th>nazwa</th>
-                            <th>liczba osób</th>
-                            <th style="width: 15%" colspan="4"></th>
+                            <th>numer rezerwacji</th>
+                            <th>temat spotkania</th>
+                            <th>liczba uczestników</th>
+                            <th>czas rozpoczęcia</th>
+                            <th>czas zakończenia</th>
+                            <th>nazwa sali</th>
+                            <th>imię użytkownika</th>
+                            <th>nazwisko użytkownika</th>
+                            <th style="width: 15%" colspan="2"></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${rooms}" var="room">
-                        <tr>
+                        <c:forEach items="${searchResult}" var="reservation">
+                            <tr>
 
-                            <td>${room.name}</td>
-                            <td>${room.capacity}</td>
-                            <td colspan="4" align="center" class="d-inline-flex">
-                                <a href="update/${room.id}" class="btn btn-outline-info btn-sm mx-1">Szczegóły</a>
-                                <a href="/reservations/add" class="btn btn-outline-dark btn-sm mx-1">Zarezerwuj</a>
-                                <a href="update/${room.id}" class="btn btn-outline-secondary btn-sm mx-1">Edytuj</a>
-                                <a href="delete/${room.id}" class="btn btn-outline-danger btn-sm mx-1">Usuń</a>
-                            </td>
-                        </tr>
+                                <td>${reservation.id}</td>
+                                <td>${reservation.subject}</td>
+                                <td>${reservation.numberOfPeople}</td>
+                                <td>${reservation.startTime}</td>
+                                <td>${reservation.endTime}</td>
+                                <td>${reservation.room.name}</td>
+                                <td>${reservation.user.firstName}</td>
+                                <td>${reservation.user.lastName}</td>
+
+                                <td colspan="2" align="center" class="d-inline-flex">
+                                    <a href="update/${reservation.id}" class="btn btn-outline-secondary btn-sm mx-1">Edytuj</a>
+                                    <a href="delete/${reservation.id}"
+                                       class="btn btn-outline-danger btn-sm mx-1">Usuń</a>
+                                </td>
+                            </tr>
                         </c:forEach>
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="card-footer text-center">
-                <a href="add" class="btn btn-outline-dark">Dodaj salę</a>
+                <a href="/reservations/add" class="btn btn-outline-dark">Dodaj rezerwację</a>
             </div>
         </div>
     </div>
