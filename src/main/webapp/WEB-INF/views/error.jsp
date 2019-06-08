@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <span class="sr-only"><c:out value="${currentUser.firstName}"/></span>
+                    <c:out value="<span class=\"nav-link\">Witaj ${currentUser.firstName}!</span>" escapeXml="false"/>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/reservations/add">Zarezerwuj salę</a>

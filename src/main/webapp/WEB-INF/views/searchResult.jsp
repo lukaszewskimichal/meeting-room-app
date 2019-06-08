@@ -91,8 +91,8 @@
                                 <td>${reservation.user.lastName}</td>
 
                                 <td colspan="2" align="center" class="d-inline-flex">
-                                    <a href="update/${reservation.id}" class="btn btn-outline-secondary btn-sm mx-1">Edytuj</a>
-                                    <a href="delete/${reservation.id}"
+                                    <a href="/reservations/update/${reservation.id}" class="btn btn-outline-secondary btn-sm mx-1">Edytuj</a>
+                                    <a href="/reservations/delete/${reservation.id}"
                                        class="btn btn-outline-danger btn-sm mx-1">Usuń</a>
                                 </td>
                             </tr>
@@ -102,6 +102,7 @@
                 </div>
             </div>
             <div class="card-footer text-center">
+                <a href="/search/" class="btn btn-outline-dark">Powrót</a>
                 <a href="/reservations/add" class="btn btn-outline-dark">Dodaj rezerwację</a>
             </div>
         </div>

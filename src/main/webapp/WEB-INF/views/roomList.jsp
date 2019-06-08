@@ -79,7 +79,7 @@
                             <td>${room.name}</td>
                             <td>${room.capacity}</td>
                             <td colspan="4" align="center" class="d-inline-flex">
-                                <a href="update/${room.id}" class="btn btn-outline-info btn-sm mx-1">Szczegóły</a>
+                                <a href="/rooms/details/${room.id}" class="btn btn-outline-info btn-sm mx-1">Szczegóły</a>
                                 <a href="/reservations/add" class="btn btn-outline-dark btn-sm mx-1">Zarezerwuj</a>
                                 <a href="update/${room.id}" class="btn btn-outline-secondary btn-sm mx-1">Edytuj</a>
                                 <a href="delete/${room.id}" class="btn btn-outline-danger btn-sm mx-1">Usuń</a>

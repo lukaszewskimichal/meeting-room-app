@@ -84,8 +84,8 @@
                                 <td>${reservation.id}</td>
                                 <td>${reservation.subject}</td>
                                 <td>${reservation.numberOfPeople}</td>
-                                <td>${reservation.startTime}</td>
-                                <td>${reservation.endTime}</td>
+                                <td>${reservation.startTime.format(format)}</td>
+                                <td>${reservation.endTime.format(format)}</td>
                                 <td>${reservation.room.name}</td>
                                 <td>${reservation.user.firstName}</td>
                                 <td>${reservation.user.lastName}</td>
