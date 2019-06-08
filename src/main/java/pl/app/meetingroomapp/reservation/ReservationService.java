@@ -1,9 +1,8 @@
 package pl.app.meetingroomapp.reservation;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.app.meetingroomapp.room.Room;
-import pl.app.meetingroomapp.room.RoomRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -20,6 +19,13 @@ public class ReservationService {
         reservationRepository.save(reservation);
     }
 
+    public Reservation readWithRoomsAndUsers(Long id) {
+        Reservation reservation = reservationRepository.getOne(id);
+        Hibernate.initialize(reservation.getRoom());
+        Hibernate.initialize(reservation.getUser());
+        return reservation;
+    }
+
     public Reservation findById(Long id) {
         return reservationRepository.getOne(id);
     }
@@ -28,7 +34,10 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
-    public void update(Reservation reservation) { reservationRepository.save(reservation);
+    public void update(Reservation reservation) {
+        Hibernate.initialize(reservation.getRoom());
+        Hibernate.initialize(reservation.getUser());
+        reservationRepository.save(reservation);
     }
 
     public void delete(Long id) {

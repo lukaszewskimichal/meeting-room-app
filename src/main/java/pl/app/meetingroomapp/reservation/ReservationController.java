@@ -15,6 +15,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -41,6 +42,7 @@ public class ReservationController {
     public String getList(Model model) {
         List<Reservation> reservations = reservationService.findAll();
         model.addAttribute("reservations", reservations);
+        model.addAttribute("format", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         return "reservationList";
     }
 
@@ -71,7 +73,7 @@ public class ReservationController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@ModelAttribute @Valid ServletRequest request, Reservation reservation, BindingResult result) {
+    public String update(@ModelAttribute @Valid Reservation reservation, BindingResult result, ServletRequest request) {
         if (result.hasErrors()) {
             return "reservation";
         }

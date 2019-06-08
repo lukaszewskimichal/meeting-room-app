@@ -34,8 +34,6 @@ public class SearchController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RoomConverter roomConverter;
 
     @GetMapping("/")
     public String getFindForm(Model model) {
@@ -48,11 +46,12 @@ public class SearchController {
         if (result.hasErrors()) {
             return "search";
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
         String subject = request.getParameter("subject");
-        Long userId = Long.parseLong((request.getParameter("userId")));
-        Long roomId = Long.parseLong((request.getParameter("roomId")));
+        Long userId = search.getUser().getId();
+        Long roomId = search.getRoom().getId();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
         String startTimeString = request.getParameter("startTime");
         LocalDateTime startTime = LocalDateTime.parse(startTimeString, formatter);
