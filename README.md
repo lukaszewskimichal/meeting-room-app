@@ -3,10 +3,10 @@
 
 ____
 Used technologies and tools:</br></br>
- • Spring
- • Spring Boot
- • Spring Data
- • MySQL
+ • Spring</br>
+ • Spring Boot</br>
+ • Spring Data</br>
+ • MySQL</br>
  • HTML, JSP</br>
  • styling: CSS/Bootstrap</br>
  • IDE: IntelliJ IDEA
